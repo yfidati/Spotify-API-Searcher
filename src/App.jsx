@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import SearchBar from './components/SearchBar';
+import Results from './components/Results';
+import { searchSpotify } from './utils/spotify';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [results, setResults] = useState(null);
+
+  const handleSearch = async (query) => {
+    const data = await searchSpotify(query);
+    setResults(data);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+    <div className="bg-black text-white min-h-screen">
+      <h1 className="text-4xl font-bold text-center pt-10">Spotify API Searcher</h1>
+      <SearchBar onSearch={handleSearch} />
+      {!results ? (
+        <p className="text-center text-gray-500 mt-16">
+          Please search for an artist to see results.
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      ) : (
+        <Results results={results} />
+      )}
+    </div>
+  );
+};
 
-export default App
+export default App;
