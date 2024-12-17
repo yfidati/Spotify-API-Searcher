@@ -11,7 +11,6 @@ const Results = ({ results }) => {
 
   return (
     <div className="p-4 px-4 sm:px-6 md:mx-8 ">
-        console.log(import.meta.env.VITE_SPOTIFY_CLIENT_ID),
       {/* Grid of Songs */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-6">
         {tracks.items.map((track) => (
